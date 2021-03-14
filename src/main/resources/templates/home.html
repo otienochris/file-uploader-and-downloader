@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymelead.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Manager</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+</head>
+<body>
+    <div class="container-fluid text-center">
+        <h1>Document Manager</h1>
+
+        <div class="text-success">
+            <h3>[[${message}]]</h3>
+        </div>
+
+        <div class="row border rounded m-3 p-3">
+            <th:block th:each="doc : ${listDocs}">
+                <div class="col">
+                    <di>
+                        <img th:src="@{/images/Screenshot (29).png}" width="50" />
+                    </di>
+                    <div>
+                        <a th:href="@{'/download?id=' + ${doc.id}}"> [[${doc.name}]] </a>
+                    </div>
+                    <div>
+                        ([[${#numbers.formatInteger(doc.size, 4, 'COMMA')}]] bytes)
+                    </div>
+                </div>
+            </th:block>
+        </div>
+
+        <form th:action="@{/upload}" method="post" enctype="multipart/form-data"
+              style="max-width: 600px; margin: 0 auto">
+            <div class="border rounded m-3">
+                <h2>Upload files: </h2>
+                <p>
+                    <input type="file" name="document" required>
+                </p>
+                <p>
+                    <input type="submit" value="Upload" class="btn btn-primary">
+                </p>
+
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>
